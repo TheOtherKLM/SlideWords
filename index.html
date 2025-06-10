@@ -15,13 +15,6 @@
       box-sizing: border-box;
     }
     h1 { margin-bottom: 5px; font-size: 24px; }
-    #intro {
-      max-width: 320px;
-      text-align: left; /* aligned left now */
-      margin-bottom: 15px;
-      font-size: 14px;
-      color: #444;
-    }
     #puzzle {
       display: grid;
       grid-template: repeat(5, 44px) / repeat(5, 44px); /* smaller board ≈ 240px */
@@ -77,22 +70,17 @@
       font-size: 14px;
       text-align: center;
     }
+    #intro {
+      max-width: 320px;
+      text-align: left;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #444;
+    }
   </style>
 </head>
 <body>
   <h1>Slide Words</h1>
-  <div id="intro">
-    <strong>How to Play:</strong> This is part <strong>Boggle</strong>, part <strong>Word Search</strong>, and part <strong>Sliding Puzzle</strong>!<br><br>
-    <strong>Goal:</strong> Find as many words as you can in 3 minutes.<br><br>
-    <strong>How to play:</strong><br>
-    ✅ Slide tiles to rearrange letters on the board.<br>
-    ✅ Click <strong>adjacent letters</strong> (touching horizontally, vertically, or diagonally) to form words.<br>
-    ✅ Letters must be connected — no skipping or jumping.<br>
-    ✅ Submit your word to earn points.<br>
-    ✅ Duplicate words are not allowed.<br>
-    ✅ Continue sliding and selecting words as fast as you can!<br><br>
-    You have <strong>3 minutes</strong> — good luck and have fun!
-  </div>
   <div id="timer">Time: 180 sec</div>
   <div class="controls">
     <button id="start-timer">Start Timer</button>
@@ -109,6 +97,20 @@
     <h3>Words Found:</h3>
     <ul id="word-list"></ul>
   </div>
+  <!-- Moved instructions BELOW the game -->
+  <div id="intro">
+    <strong>How to Play:</strong><br>
+    This is part <strong>Boggle</strong>, part <strong>Word Search</strong>, and part <strong>Sliding Puzzle</strong>!<br><br>
+    <strong>Goal:</strong> Find as many words as you can in 3 minutes.<br><br>
+    <strong>How to play:</strong><br>
+    ✅ Slide tiles to rearrange letters on the board.<br>
+    ✅ Click <strong>adjacent letters</strong> (touching horizontally, vertically, or diagonally) to form words.<br>
+    ✅ Letters must be connected — no skipping or jumping.<br>
+    ✅ Submit your word to earn points.<br>
+    ✅ Duplicate words are not allowed.<br>
+    ✅ Continue sliding and selecting words as fast as you can!<br><br>
+    You have <strong>3 minutes</strong> — good luck and have fun!
+  </div>
 
   <script>
     const puzzleContainer = document.getElementById('puzzle');
@@ -122,7 +124,7 @@
     const restartGameButton = document.getElementById('restart-game');
 
     let dictionarySet = new Set();
-    let foundWordsSet = new Set(); // track found words
+    let foundWordsSet = new Set();
 
     async function loadDictionary() {
       const res = await fetch('https://raw.githubusercontent.com/dwyl/english-words/master/words_dictionary.json');
@@ -136,7 +138,7 @@
     let selectedIndices = [];
     let score = 0;
     let timer = null;
-    let timeLeft = 180; // 3 minutes
+    let timeLeft = 180;
     let gameActive = false;
 
     function shuffle(array) {
@@ -153,7 +155,7 @@
 
       const shuffled = [...letters];
       shuffle(shuffled);
-      shuffled.pop(); // create empty
+      shuffled.pop();
 
       for (let i = 0; i < 25; i++) {
         const tile = document.createElement('div');
@@ -187,7 +189,6 @@
                            || (clickedPos.col === emptyPos.col && Math.abs(clickedPos.row - emptyPos.row) === 1);
 
       if (gameActive && isMoveAdjacent && selectedIndices.length === 0) {
-        // Move tile (ONLY if no selection in progress)
         tiles[emptyIdx].textContent = tiles[idx].textContent;
         tiles[emptyIdx].classList.replace('empty', 'tile');
         tiles[idx].textContent = '';
@@ -195,7 +196,6 @@
         return;
       }
 
-      // Word selection logic
       if (gameActive && !tiles[idx].classList.contains('empty') && !selectedIndices.includes(idx)) {
         if (selectedIndices.length === 0) {
           selectedIndices.push(idx);
@@ -306,5 +306,4 @@
   </script>
 </body>
 </html>
-
 
