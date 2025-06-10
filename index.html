@@ -5,26 +5,82 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Slide Words</title>
   <style>
-    body { font-family: Arial, sans-serif; display:flex;flex-direction:column; align-items:center; padding:20px; background:#f0f0f0; }
-    h1 { margin-bottom:5px; }
-    #intro { max-width:500px; text-align:center; margin-bottom:15px; font-size:16px; color:#444; }
-    #puzzle { display:grid; grid-template:repeat(5,80px)/repeat(5,80px); gap:5px; margin-bottom:15px; }
-    .tile { display:flex; align-items:center; justify-content:center; background:#4CAF50; color:white; font-size:24px; cursor:pointer; border-radius:8px; user-select:none; }
-    .tile.empty { background:#ccc; cursor:default; }
-    .tile.selected { background:#2196F3; }
-    .controls { margin-bottom:10px; }
-    .controls button { padding:8px 16px; margin:0 5px; font-size:16px; }
-    #score { font-size:18px; font-weight:bold; margin-bottom:10px; color:#333; }
-    #timer { font-size:24px; font-weight:bold; margin-bottom:10px; color:#e53935; }
-    #words-found ul { list-style:none; padding:0; }
-    #words-found li { background:#fff; margin:3px 0; padding:5px; border-radius:5px; border:1px solid #ddd; }
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      background: #f0f0f0;
+      box-sizing: border-box;
+    }
+    h1 { margin-bottom: 5px; font-size: 24px; }
+    #intro {
+      max-width: 300px;
+      text-align: center;
+      margin-bottom: 15px;
+      font-size: 14px;
+      color: #444;
+    }
+    #puzzle {
+      display: grid;
+      grid-template: repeat(5, 56px) / repeat(5, 56px); /* board ≈ 300px */
+      gap: 4px;
+      margin-bottom: 15px;
+    }
+    .tile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #4CAF50;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      border-radius: 8px;
+      user-select: none;
+    }
+    .tile.empty { background: #ccc; cursor: default; }
+    .tile.selected { background: #2196F3; }
+    .controls { margin-bottom: 10px; }
+    .controls button {
+      padding: 6px 12px;
+      margin: 0 4px;
+      font-size: 14px;
+    }
+    #score {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    #timer {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #e53935;
+    }
+    #words-found ul {
+      list-style: none;
+      padding: 0;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+    #words-found li {
+      background: #fff;
+      margin: 3px 0;
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
   <h1>Slide Words</h1>
   <div id="intro">
     Slide the tiles to form valid words.<br>
-    Select adjacent tiles to build a word. Submit to score points!<br>
+    Select adjacent tiles to build a word.<br>
+    Submit to score points!<br>
     You have 3 minutes. Good luck!
   </div>
   <div id="timer">Time: 180 sec</div>
@@ -231,3 +287,4 @@
   </script>
 </body>
 </html>
+
